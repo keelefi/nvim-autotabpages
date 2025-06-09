@@ -25,7 +25,7 @@ local function filesForAllSplits(layout, capture)
 end
 
 local function getLayoutMatch(fileFullname)
-    local config = require('config')
+    local config = require('autotabpages.config')
 
     for entryName,layout in pairs(config.options.layouts) do
         for split,patternList in pairs(layout) do
