@@ -1,11 +1,29 @@
+local state = require('autotabpages.state')
+
 local M = {}
 
 function M.enable()
+    if state.getEnabled() then return end
+
     require('autotabpages.autocmds').enable()
+
+    state.setEnabled(true)
 end
 
 function M.disable()
+    if not state.getEnabled() then return end
+
     require('autotabpages.autocmds').disable()
+
+    state.setEnabled(false)
+end
+
+function M.toggle()
+    if state.getEnabled() then
+        M.disable()
+    else
+        M.enable()
+    end
 end
 
 function M.setup(opts)
