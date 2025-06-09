@@ -6,6 +6,7 @@ function M.enable()
     if state.getEnabled() then return end
 
     require('autotabpages.autocmds').enable()
+    require('autotabpages.usercmds').enable()
 
     state.setEnabled(true)
 end
@@ -14,6 +15,7 @@ function M.disable()
     if not state.getEnabled() then return end
 
     require('autotabpages.autocmds').disable()
+    require('autotabpages.usercmds').disable()
 
     state.setEnabled(false)
 end
