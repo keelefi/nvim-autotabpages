@@ -11,6 +11,7 @@ describe('File pattern tests', function()
 
         local expected = {'*.c', '*.h'}
         local actual = filepatterns.getFilePatterns(layouts)
+        table.sort(actual)
 
         assert.are.same(expected, actual)
     end)
