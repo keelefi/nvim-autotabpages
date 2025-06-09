@@ -58,10 +58,8 @@ local function openTab(originalFile, tabLayout)
             vim.fn.win_execute(windowID, string.format('edit %s', filename))
 
             local windowInfo = vim.fn.getwininfo(windowID)
-            print(string.format('windowInfo: %s', vim.inspect(windowInfo)))
             if windowInfo and windowInfo[1] then
                 local bufferID = windowInfo[1].bufnr
-                vim.print(string.format('bufferID: %s', bufferID))
                 vim.treesitter.start(bufferID, tabLayout.language)
             end
         end
