@@ -13,7 +13,6 @@ COPY run-tests.sh /data
 COPY tests /data/tests
 COPY lua /data/lua
 
-#ENV LUA_PATH=/data/lua/?.lua
+ENV LUA_PATH=/data/lua/?.lua
 
-#ENTRYPOINT ["busted", "--verbose", "/data/tests"]
-CMD ["busted", "--verbose", "/data/tests"]
+CMD ["busted", "--pattern=\"test-.*%.lua\"", "--verbose", "tests"]
