@@ -1,9 +1,11 @@
 local M = {}
 
-function M.getFilePatterns()
-    local config = require('autotabpages.config')
+function M.getFilePatterns(layouts)
+    if layouts == nil then
+        local config = require('autotabpages.config')
 
-    local layouts = config.options.layouts
+        layouts = config.options.layouts
+    end
 
     local hookPatterns = {}
     for _,layout in pairs(layouts) do
