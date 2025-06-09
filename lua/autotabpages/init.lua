@@ -11,6 +11,8 @@ end
 function M.setup(opts)
     --_G.AutoTabPages.config = require("autotabpages.config").setup(opts)
     require("autotabpages.config").setup(opts)
+
+    M.enable()
 end
 
 --_G.AutoTabPages = M
