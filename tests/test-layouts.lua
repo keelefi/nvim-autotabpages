@@ -79,4 +79,21 @@ describe('Layouts Tests', function()
         local actualErr = string.sub(err, -#expectedErr)
         assert.is.same(actualErr, expectedErr)
     end)
+
+    it('Test Incorrect Split', function()
+        local layouts = {
+            c = {
+                left = {'*.c'},
+                east = {'*.h'},
+            },
+        }
+
+        local expectedErr = 'Split `east` is not supported'
+        local result, err = pcall(layoutsModule.verify, layouts)
+
+        assert.is.Not.True(result)
+
+        local actualErr = string.sub(err, -#expectedErr)
+        assert.is.same(actualErr, expectedErr)
+    end)
 end)
