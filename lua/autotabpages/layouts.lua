@@ -23,10 +23,10 @@ function M.verify(layouts)
         local filetypes = vim.treesitter.language.get_filetypes(language)
         assert(filetypes, string.format("Language `%s` is not supported", language))
 
+        local patterns = {}
         for split,patternList in pairs(layout) do
             assert(vim.list_contains(splits, split), string.format("Split `%s` is not supported", split))
 
-            local patterns = {}
             for _,pattern in ipairs(patternList) do
                 assert(not vim.list_contains(patterns, pattern), string.format("Pattern `%s` found in multiple splits", pattern))
 
