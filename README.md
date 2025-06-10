@@ -9,7 +9,7 @@ Configure `AutoTabPages` with [lazy.nvim](https://lazy.folke.io/) as follows:
 
 ```
 local M = {
-    'https://github.com/keelefi/nvim-autotabpages',
+    'keelefi/nvim-autotabpages',
     opts = {
         layouts = {
             c = {
