@@ -8,14 +8,14 @@ local splits = {
 }
 
 function M.defaults()
-    local defaultLayout = {
+    local defaultLayouts = {
         c = {
             left = { "*.c" },
             right = { "*.h" },
         },
     }
 
-    return layouts
+    return defaultLayouts
 end
 
 function M.verify(layouts)
