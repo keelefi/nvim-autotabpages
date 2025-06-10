@@ -10,7 +10,15 @@ describe('Layouts Tests', function()
                     get_filetypes = spy.new(function(str) return {'.c', '.h'} end),
                 },
             },
-            list_contains = spy.new(function(tbl, item) return item == "left" or item == "right" end),
+            list_contains = spy.new(
+                function(tbl, item)
+                    for _,tblItem in ipairs(tbl) do
+                        if tblItem == item then
+                            return true
+                        end
+                    end
+                end
+            ),
         }
     end)
 
@@ -72,9 +80,9 @@ describe('Layouts Tests', function()
         }
 
         local expectedErr = 'Language `abc` is not supported'
-        local result, err = pcall(layoutsModule.verify, layouts)
+        local ok, err = pcall(layoutsModule.verify, layouts)
 
-        assert.is.Not.True(result)
+        assert.is.Not.True(ok)
 
         local actualErr = string.sub(err, -#expectedErr)
         assert.is.same(actualErr, expectedErr)
@@ -89,9 +97,26 @@ describe('Layouts Tests', function()
         }
 
         local expectedErr = 'Split `east` is not supported'
-        local result, err = pcall(layoutsModule.verify, layouts)
+        local ok, err = pcall(layoutsModule.verify, layouts)
 
-        assert.is.Not.True(result)
+        assert.is.Not.True(ok)
+
+        local actualErr = string.sub(err, -#expectedErr)
+        assert.is.same(actualErr, expectedErr)
+    end)
+
+    it('Test Overlapping Pattern', function()
+        local layouts = {
+            c = {
+                left = {'*.c', '*.a'},
+                right = {'*.h', '*.a'},
+            },
+        }
+
+        local expectedErr = 'Pattern `*.a` found in multiple splits'
+        local ok, err = pcall(layoutsModule.verify, layouts)
+
+        assert.is.Not.True(ok)
 
         local actualErr = string.sub(err, -#expectedErr)
         assert.is.same(actualErr, expectedErr)
