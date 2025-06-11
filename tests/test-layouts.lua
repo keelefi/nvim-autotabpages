@@ -247,3 +247,84 @@ describe('Layout Match Tests', function()
         assert.spy(tabLayoutFunc).was.called_with(layouts.cpp, 'src/foo')
     end)
 end)
+
+describe('Tab Layout Creation Tests', function()
+    before_each(function()
+        _G.vim = {
+            uv = {
+                fs_stat = spy.new(
+                    function(filename)
+                        for _,file in ipairs(files) do
+                            if file == filename then
+                                return true
+                            end
+                        end
+
+                        return false
+                    end
+                ),
+            },
+        }
+    end)
+
+    it('Test C Files', function()
+        local capture = 'src/foo'
+        _G.files = { 'src/foo.c', 'src/foo.h' }
+        local layout = {
+            left = { '*.c' },
+            right = { '*.h' },
+        }
+
+        local expected = {
+            left = 'src/foo.c',
+            right = 'src/foo.h',
+        }
+
+        local actual = layoutsModule.findFilesForTabLayout(layout, capture)
+
+        assert.is.same(expected, actual)
+
+        assert.spy(vim.uv.fs_stat).was.called_with('src/foo.c')
+        assert.spy(vim.uv.fs_stat).was.called_with('src/foo.h')
+    end)
+
+    it('Test C++ Files', function()
+        local capture = 'src/foo'
+        _G.files = { 'src/foo.cpp', 'src/foo.h' }
+        local layout = {
+            left = {'*.cpp', '*.cc'},
+            right = {'*.h', '*.hh', '*.hpp'},
+        }
+
+        local expected = {
+            left = 'src/foo.cpp',
+            right = 'src/foo.h',
+        }
+
+        local actual = layoutsModule.findFilesForTabLayout(layout, capture)
+
+        assert.is.same(expected, actual)
+
+        assert.spy(vim.uv.fs_stat).was.called()
+    end)
+
+    it('Test Files Mix', function()
+        local capture = 'src/bar'
+        _G.files = { 'src/foo.cpp', 'src/foo.h', 'src/bar.cpp', 'src/bar.h' }
+        local layout = {
+            left = {'*.cpp', '*.cc'},
+            right = {'*.h', '*.hh', '*.hpp'},
+        }
+
+        local expected = {
+            left = 'src/bar.cpp',
+            right = 'src/bar.h',
+        }
+
+        local actual = layoutsModule.findFilesForTabLayout(layout, capture)
+
+        assert.is.same(expected, actual)
+
+        assert.spy(vim.uv.fs_stat).was.called()
+    end)
+end)
