@@ -31,6 +31,7 @@ local function getLayoutMatch(fileFullname)
         for split,patternList in pairs(layout) do
             for _,pattern in ipairs(patternList) do
                 local matcher = string.gsub(pattern, "%*", "(.*)")
+                matcher = "^" .. matcher .. "$"
 
                 local capture = string.match(fileFullname, matcher)
 
