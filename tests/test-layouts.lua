@@ -1,8 +1,6 @@
 local layoutsModule = require('autotabpages.layouts')
 
---_G.vim = require('mock-vim')
-
-describe('Layouts Tests', function()
+describe('Verify Layouts Tests', function()
     before_each(function()
         _G.vim = {
             treesitter = {
@@ -120,5 +118,132 @@ describe('Layouts Tests', function()
 
         local actualErr = string.sub(err, -#expectedErr)
         assert.is.same(actualErr, expectedErr)
+    end)
+end)
+
+describe('Layout Match Tests', function()
+    --[[
+    before_each(function()
+        _G.vim = {
+            treesitter = {
+                language = {
+                    get_filetypes = spy.new(function(str) return {'.c', '.h'} end),
+                },
+            },
+            list_contains = spy.new(
+                function(tbl, item)
+                    for _,tblItem in ipairs(tbl) do
+                        if tblItem == item then
+                            return true
+                        end
+                    end
+                end
+            ),
+        }
+    end)
+    ]]
+
+    --after_each(function()
+    --    vim.treesitter.language.get_filetypes:clear()
+    --    vim.list_contains:clear()
+    --end)
+
+    it('Test C Layout', function()
+        local layouts = {
+            c = {
+                left = { '*.c' },
+                right = { '*.h' },
+            },
+        }
+
+        local fileFullname = 'src/foo.c'
+
+        local expectedTabLayout = {
+            language = 'c',
+            splits = {
+                left = 'src/foo.c',
+                right = 'src/foo.h',
+            }
+        }
+
+        local tabLayoutFunc = spy.new(function(layout, capture) return expectedTabLayout.splits end)
+
+        local actualTabLayout = layoutsModule.getLayoutMatch(fileFullname, layouts, tabLayoutFunc)
+
+        assert.spy(tabLayoutFunc).was.called_with(layouts.c, 'src/foo')
+    end)
+
+    it('Test C++ Layout, .cpp file', function()
+        local layouts = {
+            c = {
+                left = { '*.c' },
+                right = { '*.h' },
+            },
+            cpp = {
+                left = {'*.cpp', '*.cc'},
+                right = {'*.h', '*.hh', '*.hpp'},
+            },
+        }
+
+        local fileFullname = 'src/foo.cpp'
+
+        local expectedTabLayout = {
+            language = 'cpp',
+            splits = {
+                left = 'src/foo.cpp',
+                right = 'src/foo.h',
+            }
+        }
+
+        local tabLayoutFunc = spy.new(
+            function(layout, capture)
+                if layout == layouts.cpp then
+                    return expectedTabLayout.splits
+                end
+
+                return nil
+            end
+        )
+
+        local actualTabLayout = layoutsModule.getLayoutMatch(fileFullname, layouts, tabLayoutFunc)
+
+        assert.spy(tabLayoutFunc).was.called_with(layouts.cpp, 'src/foo')
+    end)
+
+    it('Test C++ Layout, .h file', function()
+        local layouts = {
+            c = {
+                left = { '*.c' },
+                right = { '*.h' },
+            },
+            cpp = {
+                left = {'*.cpp', '*.cc'},
+                right = {'*.h', '*.hh', '*.hpp'},
+            },
+        }
+
+        local fileFullname = 'src/foo.h'
+
+        local expectedTabLayout = {
+            language = 'cpp',
+            splits = {
+                left = 'src/foo.cpp',
+                right = 'src/foo.h',
+            }
+        }
+
+        local tabLayoutFunc = spy.new(
+            function(layout, capture)
+                if layout == layouts.cpp then
+                    return expectedTabLayout.splits
+                end
+
+                return nil
+            end
+        )
+
+        local actualTabLayout = layoutsModule.getLayoutMatch(fileFullname, layouts, tabLayoutFunc)
+
+        assert.spy(tabLayoutFunc).was.called_with(layouts.cpp, 'src/foo')
     end)
 end)
