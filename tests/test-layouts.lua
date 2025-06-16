@@ -1,3 +1,5 @@
+---@diagnostic disable:param-type-mismatch
+
 local layoutsModule = require('autotabpages.layouts')
 
 describe('Verify Layouts Tests', function()

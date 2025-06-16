@@ -1,3 +1,5 @@
+---@diagnostic disable:param-type-mismatch
+
 local tabopen = require('autotabpages.tabopen')
 
 describe('Test TabOpen', function()
