@@ -61,7 +61,7 @@ end
 
 function M.getLayoutMatch(fileFullname, layouts, tabLayoutFunc)
     for entryName,layout in pairs(layouts) do
-        for split,patternList in pairs(layout) do
+        for _,patternList in pairs(layout) do
             for _,pattern in ipairs(patternList) do
                 local matcher = string.gsub(pattern, "%*", "(.*)")
                 matcher = "^" .. matcher .. "$"
