@@ -7,6 +7,7 @@ describe('Verify Layouts Tests', function()
         _G.vim = {
             treesitter = {
                 language = {
+                    ---@diagnostic disable-next-line:unused-local
                     get_filetypes = spy.new(function(str) return {'.c', '.h'} end),
                 },
             },
@@ -70,6 +71,7 @@ describe('Verify Layouts Tests', function()
     end)
 
     it('Test Incorrect Filetype', function()
+        ---@diagnostic disable-next-line:duplicate-set-field,unused-local
         _G.vim.treesitter.language.get_filetypes = function(str) return nil end
 
         local layouts = {
@@ -168,6 +170,7 @@ describe('Layout Match Tests', function()
             }
         }
 
+        ---@diagnostic disable-next-line:unused-local
         local tabLayoutFunc = spy.new(function(layout, capture) return expectedTabLayout.splits end)
 
         local actualTabLayout = layoutsModule.getLayoutMatch(fileFullname, layouts, tabLayoutFunc)
@@ -198,6 +201,7 @@ describe('Layout Match Tests', function()
         }
 
         local tabLayoutFunc = spy.new(
+            ---@diagnostic disable-next-line:unused-local
             function(layout, capture)
                 if layout == layouts.cpp then
                     return expectedTabLayout.splits
@@ -235,6 +239,7 @@ describe('Layout Match Tests', function()
         }
 
         local tabLayoutFunc = spy.new(
+            ---@diagnostic disable-next-line:unused-local
             function(layout, capture)
                 if layout == layouts.cpp then
                     return expectedTabLayout.splits
@@ -307,6 +312,7 @@ describe('Tab Layout Creation Tests', function()
 
         assert.is.same(expected, actual)
 
+        ---@diagnostic disable-next-line:missing-parameter
         assert.spy(vim.uv.fs_stat).was.called()
     end)
 
@@ -327,6 +333,7 @@ describe('Tab Layout Creation Tests', function()
 
         assert.is.same(expected, actual)
 
+        ---@diagnostic disable-next-line:missing-parameter
         assert.spy(vim.uv.fs_stat).was.called()
     end)
 end)

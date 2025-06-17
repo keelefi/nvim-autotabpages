@@ -6,17 +6,21 @@ describe('Test TabOpen', function()
     before_each(function()
         _G.vim = {
             api = {
+                ---@diagnostic disable-next-line:unused-local
                 nvim_open_win = spy.new(function(buf, enter, config) return 0 end),
             },
             fn = {
+                ---@diagnostic disable-next-line:unused-local
                 win_execute = spy.new(function(winid, cmd) end),
                 getwininfo = spy.new(
+                    ---@diagnostic disable-next-line:unused-local
                     function(winid)
                         return { { bufnr = 0 } }
                     end
                 ),
             },
             treesitter = {
+                ---@diagnostic disable-next-line:unused-local
                 start = spy.new(function(bufid, lang) end),
             },
         }
