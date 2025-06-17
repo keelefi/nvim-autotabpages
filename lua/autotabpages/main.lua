@@ -2,7 +2,7 @@ local M = {}
 
 function M.newTabLayout(args)
     local filename = args.file
-    fileFullname = vim.fs.abspath(filename)
+    local fileFullname = vim.fs.abspath(filename)
 
     --local basename = vim.fs.basename(args.file)
     --local fullpath = fileFullname:sub(1, #fileFullname-#basename)
