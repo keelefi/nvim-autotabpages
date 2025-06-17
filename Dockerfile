@@ -22,13 +22,14 @@ RUN git clone https://github.com/LuaLS/lua-language-server
 RUN cd lua-language-server && ./make.sh
 ENV PATH="$PATH:/data/lua-language-server/bin"
 
-RUN mkdir /data/LuaCATS
-WORKDIR /data/LuaCATS
-RUN git clone https://github.com/LuaCATS/luassert.git
-RUN git clone https://github.com/LuaCATS/busted.git
-
 RUN mkdir /data/nvim-autotabpages
 WORKDIR /data/nvim-autotabpages
+
+RUN mkdir /data/nvim-autotabpages/ci
+RUN mkdir /data/nvim-autotabpages/ci/LuaCATS
+RUN git clone https://github.com/LuaCATS/luassert.git /data/nvim-autotabpages/ci/LuaCATS/luassert
+RUN git clone https://github.com/LuaCATS/busted.git /data/nvim-autotabpages/ci/LuaCATS/busted
+
 COPY .luarc-ci.json /data/nvim-autotabpages
 COPY run-tests.sh /data/nvim-autotabpages
 COPY tests /data/nvim-autotabpages/tests

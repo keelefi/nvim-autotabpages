@@ -1,5 +1,6 @@
 {
     "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
     "diagnostics.globals": ["vim"],
-    "workspace.library": ["../LuaCATS/luassert", "../LuaCATS/busted"]
+    "workspace.library": ["ci/LuaCATS/luassert", "ci/LuaCATS/busted"],
+    "workspace.ignoreDir": ["ci"]
 }
