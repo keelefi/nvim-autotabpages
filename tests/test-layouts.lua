@@ -173,7 +173,7 @@ describe('Layout Match Tests', function()
         ---@diagnostic disable-next-line:unused-local
         local tabLayoutFunc = spy.new(function(layout, capture) return expectedTabLayout.splits end)
 
-        local actualTabLayout = layoutsModule.getLayoutMatch(fileFullname, layouts, tabLayoutFunc)
+        layoutsModule.getLayoutMatch(fileFullname, layouts, tabLayoutFunc)
 
         assert.spy(tabLayoutFunc).was.called_with(layouts.c, 'src/foo')
     end)
@@ -211,7 +211,7 @@ describe('Layout Match Tests', function()
             end
         )
 
-        local actualTabLayout = layoutsModule.getLayoutMatch(fileFullname, layouts, tabLayoutFunc)
+        layoutsModule.getLayoutMatch(fileFullname, layouts, tabLayoutFunc)
 
         assert.spy(tabLayoutFunc).was.called_with(layouts.cpp, 'src/foo')
     end)
@@ -249,7 +249,7 @@ describe('Layout Match Tests', function()
             end
         )
 
-        local actualTabLayout = layoutsModule.getLayoutMatch(fileFullname, layouts, tabLayoutFunc)
+        layoutsModule.getLayoutMatch(fileFullname, layouts, tabLayoutFunc)
 
         assert.spy(tabLayoutFunc).was.called_with(layouts.cpp, 'src/foo')
     end)
