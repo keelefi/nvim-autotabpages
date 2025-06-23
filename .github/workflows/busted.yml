@@ -1,4 +1,4 @@
-name: Busted
+name: Unit Tests
 on:
   push:
     branches:
