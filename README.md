@@ -16,12 +16,12 @@ local M = {
     opts = {
         layouts = {
             c = {
-                left = {"*.c"},
-                right = {"*.h"},
+                left = {'*.c'},
+                right = {'*.h'},
             },
             cpp = {
-                left = {"*.cpp", "*.cc"},
-                right = {"*.h", "*.hh", "*.hpp"},
+                left = {'*.cpp', '*.cc'},
+                right = {'*.h', '*.hh', '*.hpp'},
             },
         },
     },
