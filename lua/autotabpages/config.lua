@@ -12,7 +12,7 @@ function M.defaults(opts)
     M.options =
         vim.deepcopy(vim.tbl_deep_extend("keep", opts or {}, defaults or {}))
 
-    layouts.verify(M.options.layouts)
+    require('autotabpages.verify').verify(M.options.layouts)
 
     return M.options
 end
