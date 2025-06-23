@@ -34,4 +34,19 @@ describe('File pattern tests', function()
 
         assert.are.same(expected, actual)
     end)
+
+    it('Test Layout With Different Folders', function()
+        local layouts = {
+            lua = {
+                left = {'lua/?.lua'},
+                right = {'tests/test-?.lua'},
+            },
+        }
+
+        local expected = {'*.lua'}
+        local actual = filepatterns.getFilePatterns(layouts)
+        table.sort(actual)
+
+        assert.are.same(expected, actual)
+    end)
 end)

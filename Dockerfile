@@ -37,4 +37,4 @@ COPY lua /data/nvim-autotabpages/lua
 
 ENV LUA_PATH=/data/nvim-autotabpages/lua/?.lua
 
-CMD ["busted", "--pattern=\"test-.*%.lua\"", "--verbose", "tests"]
+CMD ["busted", "--pattern=\".*-test%.lua\"", "--verbose", "tests/autotabpages"]

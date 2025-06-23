@@ -13,4 +13,4 @@ jobs:
       - name: Run Busted
         uses: lunarmodules/busted@v2.2.0
         with:
-          args: --lpath=./lua/?.lua --pattern="test-.*%.lua" tests
+          args: --lpath=./lua/?.lua --pattern=".*-test%.lua" tests/autotabpages

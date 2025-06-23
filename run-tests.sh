@@ -6,4 +6,4 @@ set -e
 lua-language-server --configpath .luarc-ci.json --check . --checklevel=Hint
 
 # run busted
-busted --pattern="test-.*%.lua" tests
+busted --pattern=".*-test%.lua" tests/autotabpages

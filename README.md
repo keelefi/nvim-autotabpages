@@ -23,6 +23,10 @@ local M = {
                 left = {'*.cpp', '*.cc'},
                 right = {'*.h', '*.hh', '*.hpp'},
             },
+            lua = {
+                left = {'lua/?.lua'},
+                right = {'tests/?-test.lua'},
+            },
         },
     },
 }

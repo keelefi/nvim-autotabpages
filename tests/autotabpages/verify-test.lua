@@ -65,6 +65,20 @@ describe('Verify Layouts Tests', function()
         assert.spy(vim.list_contains).was.called(11)
     end)
 
+    it('Test Lua Layout Is Valid', function()
+        local layouts = {
+            lua = {
+                left = {'lua/?.lua'},
+                right = {'tests/test-?.lua'},
+            },
+        }
+
+        verifyModule.verify(layouts)
+
+        assert.spy(vim.treesitter.language.get_filetypes).was.called_with('lua')
+        assert.spy(vim.list_contains).was.called(4)
+    end)
+
     it('Test Incorrect Filetype', function()
         ---@diagnostic disable-next-line:duplicate-set-field,unused-local
         _G.vim.treesitter.language.get_filetypes = function(str) return nil end
