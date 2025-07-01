@@ -12,7 +12,11 @@ function M.enable()
         group = group,
         pattern = require('autotabpages.filepatterns').getFilePatterns(),
         callback = require('autotabpages.main').newTabLayout,
-        -- nested = true, ??
+
+        -- note: even though nesting is generally not recommended, we have to
+        -- allow it for language parsers (like treesitter) and language servers
+        -- (like lsp-language-server) to activate properly.
+        nested = true,
     })
 end
 

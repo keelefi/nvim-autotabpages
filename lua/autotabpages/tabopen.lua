@@ -13,12 +13,6 @@ function M.tabopen(originalFile, tabLayout)
             })
 
             vim.fn.win_execute(windowID, string.format('edit %s', filename))
-
-            local windowInfo = vim.fn.getwininfo(windowID)
-            if windowInfo and windowInfo[1] then
-                local bufferID = windowInfo[1].bufnr
-                vim.treesitter.start(bufferID, tabLayout.language)
-            end
         end
     end
 end
