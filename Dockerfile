@@ -18,8 +18,12 @@ RUN luarocks install busted RT_LIBDIR=/lib/x86_64-linux-gnu
 WORKDIR /data
 
 # build Lua Language Server
+ARG LUA_LS_VERSION=3.18.2
 RUN git clone https://github.com/LuaLS/lua-language-server
-RUN cd lua-language-server && ./make.sh
+WORKDIR /data/lua-language-server
+RUN git checkout ${LUA_LS_VERSION}
+RUN chmod +x make.sh
+RUN ./make.sh
 ENV PATH="$PATH:/data/lua-language-server/bin"
 
 RUN mkdir /data/nvim-autotabpages
