@@ -15,6 +15,10 @@ RUN apt-get update && \
 #RUN ln -s /lib/x86_64-linux-gnu/librt.so.1 /usr/lib/x86_64-linux-gnu/librt.so
 RUN luarocks install busted RT_LIBDIR=/lib/x86_64-linux-gnu
 
+# change user
+RUN groupadd -r user && useradd -r -g user user
+USER user
+
 WORKDIR /data
 
 # build Lua Language Server
